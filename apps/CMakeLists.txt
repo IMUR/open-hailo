@@ -22,3 +22,8 @@ target_compile_options(simple_example PRIVATE -Wall -Wextra -O2)
 add_executable(simple_inference simple_inference_example.cpp)
 target_link_libraries(simple_inference PRIVATE HailoRT::libhailort)
 target_compile_options(simple_inference PRIVATE -Wall -Wextra -O2)
+
+# Camera + Hailo integration test (proves complete hardware stack)
+add_executable(camera_hailo_test camera_hailo_test.cpp)
+target_link_libraries(camera_hailo_test PRIVATE HailoRT::libhailort)
+target_compile_options(camera_hailo_test PRIVATE -Wall -Wextra -O2)

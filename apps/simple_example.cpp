@@ -75,18 +75,18 @@ int main() {
     auto buffer = Buffer::create_shared(buffer_size, BufferStorageParams::create_dma());
     
     if (buffer.has_value()) {
-        std::cout << "✓ Successfully allocated " << buffer->size() << " byte DMA buffer" << std::endl;
+        std::cout << "✓ Successfully allocated " << buffer.value()->size() << " byte DMA buffer" << std::endl;
         
         // You can access buffer data with:
-        // buffer->data() - returns void* to buffer data
-        // buffer->size() - returns buffer size in bytes
+        // buffer.value()->data() - returns void* to buffer data
+        // buffer.value()->size() - returns buffer size in bytes
     } else {
         std::cout << "⚠ DMA buffer allocation failed (this is often normal)" << std::endl;
         std::cout << "  Trying regular buffer..." << std::endl;
         
-        auto regular_buffer = Buffer::create_shared(buffer_size, BufferStorageParams::create_internal());
+        auto regular_buffer = Buffer::create_shared(buffer_size);  // Default is heap allocation
         if (regular_buffer.has_value()) {
-            std::cout << "✓ Successfully allocated " << regular_buffer->size() << " byte regular buffer" << std::endl;
+            std::cout << "✓ Successfully allocated " << regular_buffer.value()->size() << " byte regular buffer" << std::endl;
         }
     }
     

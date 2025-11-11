@@ -18,14 +18,24 @@ Open Hailo is an open-source integration for the Hailo AI HAT+ accelerator on Ra
 # Full automated build (builds driver, runtime, and test apps)
 ./build.sh
 
-# Build test application only
+# Rebuild only the driver (after kernel updates)
+cd drivers/hailort-drivers/linux/pcie
+make clean && make all && sudo make install
+sudo modprobe -r hailo_pci && sudo modprobe hailo_pci
+
+# Build test applications
 cd apps
 mkdir -p build && cd build
 cmake ..
-make
+make -j$(nproc)
 
-# Run device test
-./device_test
+# Build a single application
+make device_test
+
+# Available test applications:
+# - device_test: Basic device connectivity test (no model required)
+# - simple_example: Device enumeration and capabilities
+# - simple_inference_example: Full inference pipeline (requires HEF model)
 
 # Verify device detection
 hailortcli scan
@@ -40,11 +50,15 @@ sudo dmesg | grep hailo
 ## Testing Commands
 
 ```bash
-# Run the C++ device test (no model required)
+# Run basic device tests (no model required)
 cd apps/build
-./device_test
+./device_test           # Test device connectivity, temperature, power
+./simple_example        # Enumerate devices and capabilities
 
-# Check temperature and power (if supported)
+# Run inference test (requires HEF model)
+./simple_inference_example model.hef
+
+# Check temperature and power
 hailortcli measure power
 hailortcli measure temp
 
@@ -103,7 +117,26 @@ if (result.has_value()) {
 Models must be converted to HEF (Hailo Executable Format) before inference:
 1. Source formats: ONNX, TensorFlow, PyTorch (via ONNX)
 2. Conversion tool: Hailo Dataflow Compiler (proprietary, not included)
-3. Inference: HEF → VStreams → Device → Results
+3. Inference pipeline: HEF → NetworkGroup → VStreams → Device → Results
+
+Full inference workflow (`apps/simple_inference_example.cpp`):
+```cpp
+// 1. Load HEF model
+auto hef = Hef::create("model.hef");
+
+// 2. Configure device with model
+auto configure_params = hef->create_configure_params(HAILO_STREAM_INTERFACE_PCIE);
+auto network_groups = vdevice->configure(hef.value(), configure_params.value());
+
+// 3. Create input/output virtual streams
+auto input_vstreams = VStreamsBuilder::create_input_vstreams(network_group, params);
+auto output_vstreams = VStreamsBuilder::create_output_vstreams(network_group, params);
+
+// 4. Run inference
+input_vstream.write(input_data);
+network_group->wait_for_activation(HAILO_ACTIVATE_NETWORK_GROUP_DURATION_MS);
+output_vstream.read(output_data);
+```
 
 ### Build System
 
@@ -161,6 +194,19 @@ sudo lspci -vv -s $(lspci | grep Hailo | cut -d' ' -f1) | grep LnkSta
 # Monitor device during operations
 watch -n 1 'hailortcli measure temp'
 ```
+
+## Python Environment
+
+A Python virtual environment is available at `venv/`:
+```bash
+# Activate virtual environment
+source venv/bin/activate
+
+# Install Python bindings (if available)
+pip install hailort
+```
+
+Note: Python bindings may require separate installation from Hailo's package repository.
 
 ## File Locations
 
