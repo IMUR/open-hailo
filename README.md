@@ -49,7 +49,7 @@ Environment setup completed with all necessary build tools and directory structu
 
 ### Phase 2: Kernel Driver Build & Installation ✓
 
-Built and installed from source: https://github.com/hailo-ai/hailort-drivers (hailo8 branch)
+Built and installed from source: <https://github.com/hailo-ai/hailort-drivers> (hailo8 branch)
 
 - Compiled kernel module with current kernel headers
 - Installed udev rules for device permissions
@@ -58,7 +58,7 @@ Built and installed from source: https://github.com/hailo-ai/hailort-drivers (ha
 
 ### Phase 3: HailoRT Runtime Compilation ✓
 
-Built and installed from source: https://github.com/hailo-ai/HailoRT (hailo8 branch)
+Built and installed from source: <https://github.com/hailo-ai/HailoRT> (hailo8 branch)
 
 - Compiled libhailort.so and hailortcli using CMake
 - Installed to /usr/local (library, headers, and CLI tool)
@@ -74,6 +74,7 @@ Built and installed from source: https://github.com/hailo-ai/HailoRT (hailo8 bra
 ### Phase 5: Test Application ✓
 
 Created and successfully ran device_test application that:
+
 - Detected the Hailo-8 device
 - Retrieved device information (ID, architecture, firmware version)
 - Allocated DMA buffer successfully
@@ -82,6 +83,7 @@ Created and successfully ran device_test application that:
 ### Phase 6: Model Pipeline & Documentation ✓
 
 Documentation created:
+
 - `docs/BUILD_GUIDE.md` - Complete build instructions for Debian 13
 - `docs/MODEL_PIPELINE.md` - Model conversion and inference guide
 - `build.sh` - Automated build script
@@ -90,6 +92,7 @@ Documentation created:
 ## Summary
 
 Successfully implemented open-source Hailo AI HAT+ support on Debian 13:
+
 - ✓ Built kernel driver from source (v4.20.0)
 - ✓ Compiled HailoRT runtime library
 - ✓ Validated device detection and basic operations
