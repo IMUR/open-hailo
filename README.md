@@ -99,14 +99,28 @@ Successfully implemented open-source Hailo AI HAT+ support on Debian 13:
 - ✓ Created reusable build automation
 - ✓ Documented entire process for community
 
-## Future Work
+## Current Status & Limitations
 
-- Test with actual HEF models
-- Benchmark inference performance
-- Explore model conversion alternatives
-- Contribute improvements upstream
+### ✅ What Works
+- Kernel driver built and loaded from source
+- HailoRT runtime compiled and installed
+- Device detection and basic validation
+- DMA buffer allocation
+- Full API access for inference
 
-This project demonstrates that the Hailo AI HAT+ can be used effectively with open-source tools on modern Linux distributions, without relying on closed-source packages or legacy dependencies.
+### ⚠️ What's Missing  
+- **HEF Model Files**: Inference requires Hailo Executable Format (HEF) models
+- **Model Conversion**: The Dataflow Compiler (DFC) for converting ONNX/TF to HEF is proprietary
+- **Camera Integration**: Not yet implemented (waiting for model to test with)
+
+### 📋 Next Steps
+1. Obtain or convert HEF model files (see [docs/INFERENCE_API.md](docs/INFERENCE_API.md))
+2. Test inference API with real models
+3. Implement camera capture pipeline
+4. Benchmark performance
+5. Create end-to-end examples
+
+This project demonstrates that the Hailo AI HAT+ **runtime and driver** can be built and used entirely with open-source tools on modern Linux distributions. Model conversion still requires Hailo's proprietary tools, but the inference runtime is fully open.
 
 ## 🚀 Quick Start
 

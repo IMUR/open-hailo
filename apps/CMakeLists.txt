@@ -17,3 +17,8 @@ target_compile_options(device_test PRIVATE -Wall -Wextra -O2)
 add_executable(simple_example simple_example.cpp)
 target_link_libraries(simple_example PRIVATE HailoRT::libhailort)
 target_compile_options(simple_example PRIVATE -Wall -Wextra -O2)
+
+# Inference example (demonstrates HEF loading and inference API)
+add_executable(simple_inference simple_inference_example.cpp)
+target_link_libraries(simple_inference PRIVATE HailoRT::libhailort)
+target_compile_options(simple_inference PRIVATE -Wall -Wextra -O2)
