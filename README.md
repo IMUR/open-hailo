@@ -128,8 +128,25 @@ cd apps/build
 
 - [Build Guide](docs/BUILD_GUIDE.md) - Detailed build instructions
 - [Model Pipeline](docs/MODEL_PIPELINE.md) - Model deployment guide
+- [Developer Guide](docs/DEVELOPER_GUIDE.md) - API reference and development workflow
 - [Project Summary](docs/SUMMARY.md) - Achievement highlights and technical details
-- [API Examples](apps/) - Sample applications
+- [API Examples](apps/) - Sample applications (`simple_example.cpp`, `device_test.cpp`)
+
+## 👨‍💻 For Developers
+
+New to Hailo development? Start here:
+
+```bash
+# After running ./build.sh, try the simple example
+cd apps/build
+./simple_example  # Beginner-friendly introduction
+./device_test     # Comprehensive device validation
+```
+
+**Key Resources:**
+- [`simple_example.cpp`](apps/simple_example.cpp) - Perfect starting point for new contributors
+- [`DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md) - API patterns and development workflow
+- [`device_test.cpp`](apps/device_test.cpp) - Advanced API usage examples
 
 ## 🤝 Contributing
 
