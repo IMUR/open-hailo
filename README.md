@@ -141,26 +141,30 @@ cd apps/build
 ## 📚 Documentation
 
 - [Build Guide](docs/BUILD_GUIDE.md) - Detailed build instructions
+- [Inference API](docs/INFERENCE_API.md) - Complete inference workflow and API patterns
+- [Developer Guide](docs/DEVELOPER_GUIDE.md) - Development workflow and best practices
+- [Discovery Log](docs/DISCOVERY_LOG.md) - How this project was built (methodology)
 - [Model Pipeline](docs/MODEL_PIPELINE.md) - Model deployment guide
-- [Developer Guide](docs/DEVELOPER_GUIDE.md) - API reference and development workflow
 - [Project Summary](docs/SUMMARY.md) - Achievement highlights and technical details
-- [API Examples](apps/) - Sample applications (`simple_example.cpp`, `device_test.cpp`)
 
 ## 👨‍💻 For Developers
 
 New to Hailo development? Start here:
 
 ```bash
-# After running ./build.sh, try the simple example
+# After running ./build.sh, try the examples in order
 cd apps/build
-./simple_example  # Beginner-friendly introduction
-./device_test     # Comprehensive device validation
+./simple_example          # Beginner-friendly device introduction
+./device_test             # Comprehensive device validation  
+./simple_inference model.hef  # Inference example (needs HEF model)
 ```
 
 **Key Resources:**
 - [`simple_example.cpp`](apps/simple_example.cpp) - Perfect starting point for new contributors
-- [`DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md) - API patterns and development workflow
-- [`device_test.cpp`](apps/device_test.cpp) - Advanced API usage examples
+- [`simple_inference_example.cpp`](apps/simple_inference_example.cpp) - Complete inference workflow
+- [`INFERENCE_API.md`](docs/INFERENCE_API.md) - Complete API reference with real patterns
+- [`DEVELOPER_GUIDE.md`](docs/DEVELOPER_GUIDE.md) - Development workflow and best practices
+- [`device_test.cpp`](apps/device_test.cpp) - Advanced device testing
 
 ## 🤝 Contributing
 
