@@ -128,6 +128,7 @@ cd apps/build
 
 - [Build Guide](docs/BUILD_GUIDE.md) - Detailed build instructions
 - [Model Pipeline](docs/MODEL_PIPELINE.md) - Model deployment guide
+- [Project Summary](docs/SUMMARY.md) - Achievement highlights and technical details
 - [API Examples](apps/) - Sample applications
 
 ## 🤝 Contributing
