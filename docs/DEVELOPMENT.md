@@ -1,5 +1,37 @@
 # Developer Guide
 
+## Project Structure
+
+The project follows a clean, organized structure with all components logically grouped:
+
+```
+open-hailo/                    
+├── README.md                  # Main documentation
+├── LICENSE                    # License
+├── setup                      # Quick setup script
+├── apps/                      # C++ example applications
+├── docs/                      # All documentation (consolidated)
+├── hailort/                   # Consolidated HailoRT components
+│   ├── drivers/               # PCIe drivers and firmware
+│   └── runtime/               # HailoRT SDK
+├── logs/                      # Centralized log files
+├── models/                    # YOLOv8 models (.hef files)
+├── scripts/                   # All scripts organized by purpose
+│   ├── build/                 # Build scripts (3)
+│   ├── preview/               # Camera preview scripts (7)
+│   ├── setup/                 # Installation scripts (5)
+│   └── utils/                 # Testing utilities (4)
+├── test/                      # Test configurations
+└── venv/                      # Python virtual environment
+```
+
+### Key Organization Principles
+- **All HailoRT components** are consolidated under `hailort/` directory
+- **All scripts** are organized by function in `scripts/` subdirectories
+- **All documentation** lives in `docs/` (no scattered docs)
+- **All logs** are centralized in `logs/` directory
+- **Minimal root directory** - only essential files at project root
+
 ## Architecture Overview
 
 Open Hailo provides a clean, layered architecture for Hailo AI HAT+ integration:

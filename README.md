@@ -42,21 +42,24 @@ rpicam-hello -t 0 --post-process-file test/hailo_yolov8_custom.json
 ```
 open-hailo/
 ├── setup                        # One-command setup
-├── docs/                        # 📚 5 consolidated docs
-│   ├── SETUP.md                 # ⭐ Setup guide
-│   ├── BUILD.md                 # Build guide
+├── docs/                        # 📚 Consolidated documentation
+│   ├── SETUP.md                 # ⭐ Complete setup guide
+│   ├── BUILD.md                 # Build instructions
 │   ├── API.md                   # API reference
 │   ├── DEVELOPMENT.md           # Developer guide
 │   └── README.md                # Docs index
-├── scripts/                     # 🔧 10 organized scripts
-│   ├── setup/                   # Install, download (3)
+├── hailort/                     # 🧠 HailoRT consolidated
+│   ├── drivers/                 # PCIe drivers & firmware
+│   └── runtime/                 # HailoRT SDK source
+├── scripts/                     # 🔧 Organized scripts
+│   ├── setup/                   # Installation (5)
 │   ├── build/                   # Compilation (3)
-│   ├── preview/                 # Visualization (2)
-│   └── utils/                   # Testing (2)
-├── test/                        # 🧪 Tests & configs
-├── models/                      # 🤖 YOLOv8 models
+│   ├── preview/                 # Visualization (7)
+│   └── utils/                   # Testing (4)
 ├── apps/                        # 💻 C++ examples
-└── runtime/                     # ⚙️ HailoRT source
+├── models/                      # 🤖 YOLOv8 models
+├── test/                        # 🧪 Test configs
+└── logs/                        # 📝 Log files
 ```
 
 ---
