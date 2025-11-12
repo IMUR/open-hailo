@@ -9,28 +9,27 @@ Real-time object detection with live camera preview and AI inference overlays.
 ## ⚡ Quick Start
 
 ```bash
-# One command - runs everything automatically (~70 min)
-./setup
+# Interactive setup menu
+./setup.sh
 ```
 
-**Or manually:**
+**Quick commands:**
 
 ```bash
-# 1. Install dependencies & download models (10 min)
-./scripts/setup/install_build_deps.sh
-./scripts/setup/install_tappas_deps.sh
-./scripts/setup/download_yolov8_models.sh
+# Test system
+./test.sh
 
-# 2. Install TAPPAS (15 min)  
-cd ~/tappas && ./install.sh --target-platform rpi5 --skip-hailort --core-only
+# Start detection
+./run.sh
 
-# 3. Build rpicam-apps (45 min)
-cd /home/crtr/Projects/open-hailo
-./scripts/build/build_hailo_preview_local.sh
+# Check compatibility
+./scripts/diagnostics/check_version_compatibility.sh
 
-# 4. Run!
-export PATH="$HOME/local/bin:$PATH"
-rpicam-hello -t 0 --post-process-file test/hailo_yolov8_custom.json
+# Install Frigate NVR
+./scripts/frigate/install_frigate_native.sh
+
+# Get official driver
+./scripts/driver/get_official_driver.sh
 ```
 
 📖 **Detailed guide:** [docs/SETUP.md](docs/SETUP.md)
@@ -41,7 +40,9 @@ rpicam-hello -t 0 --post-process-file test/hailo_yolov8_custom.json
 
 ```
 open-hailo/
-├── setup                        # One-command setup
+├── setup.sh                     # Interactive setup menu
+├── test.sh                      # Run system tests  
+├── run.sh                       # Start detection
 ├── docs/                        # 📚 Consolidated documentation
 │   ├── SETUP.md                 # ⭐ Complete setup guide
 │   ├── BUILD.md                 # Build instructions
@@ -52,10 +53,14 @@ open-hailo/
 │   ├── drivers/                 # PCIe drivers & firmware
 │   └── runtime/                 # HailoRT SDK source
 ├── scripts/                     # 🔧 Organized scripts
-│   ├── setup/                   # Installation (5)
-│   ├── build/                   # Compilation (3)
-│   ├── preview/                 # Visualization (7)
-│   └── utils/                   # Testing (4)
+│   ├── build/                   # Build rpicam-apps (3)
+│   ├── driver/                  # Driver management (11)
+│   ├── frigate/                 # Frigate NVR (5)
+│   ├── preview/                 # Camera testing (8)
+│   ├── setup/                   # Installation (11)
+│   ├── diagnostics/             # Troubleshooting (5)
+│   ├── quickstart/              # Quick start (3)
+│   └── utils/                   # Utilities (5)
 ├── apps/                        # 💻 C++ examples
 ├── models/                      # 🤖 YOLOv8 models
 ├── test/                        # 🧪 Test configs

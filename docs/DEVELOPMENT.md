@@ -1,5 +1,22 @@
 # Developer Guide
 
+## Official Resources
+
+### HailoRT Driver Repository
+The official PCIe driver source is maintained at:
+https://github.com/hailo-ai/hailort-drivers/tree/master/linux/pcie
+
+This repository contains:
+- Latest driver versions with proper kernel compatibility
+- Build instructions for different Linux distributions
+- Version tags matching HailoRT releases
+- Firmware compatibility information
+
+To get and build the official driver:
+```bash
+./get_official_driver.sh
+```
+
 ## Project Structure
 
 The project follows a clean, organized structure with all components logically grouped:

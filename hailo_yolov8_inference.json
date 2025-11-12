@@ -1,0 +1,34 @@
+{
+    "rpicam-apps":
+    {
+        "lores":
+        {
+            "width": 640,
+            "height": 640,
+            "format": "rgb"
+        }
+    },
+
+    "hailo_yolo_inference":
+    {
+        "hef_file": "/home/crtr/Projects/open-hailo/models/yolov8s.hef",
+        "hef_file_8L": "/home/crtr/Projects/open-hailo/models/yolov8s_h8l.hef",
+        "hef_file_8": "/home/crtr/Projects/open-hailo/models/yolov8s.hef",
+        "max_detections": 20,
+        "threshold": 0.5,
+
+        "temporal_filter":
+        {
+            "tolerance": 0.1,
+            "factor": 0.75,
+            "visible_frames": 6,
+            "hidden_frames": 3
+        }
+    },
+
+    "object_detect_draw_cv":
+    {
+        "line_thickness": 3,
+        "font_size": 1.0
+    }
+}

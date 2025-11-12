@@ -350,6 +350,70 @@ export PATH="$HOME/local/bin:$PATH"
 
 ---
 
+## 🎯 Object Detection with Overlays
+
+After completing the setup, you can get object detection overlays (bounding boxes with labels) using either:
+
+### Option 1: Frigate NVR (Full Featured)
+
+Frigate provides a complete NVR solution with recording, events, and web UI:
+
+```bash
+# Setup and configure Frigate with Hailo-8
+cd /home/crtr/Projects/open-hailo
+./setup_hailo_frigate.sh
+
+# Start Frigate
+cd ~/frigate
+./start_frigate_hailo.sh
+
+# Access the Web UI
+# http://<your-pi-ip>:5000
+```
+
+**Features:**
+- Real-time detection overlays on live view
+- Event recording with bounding boxes
+- Motion detection and alerts
+- Web UI with timeline and review
+- Integration with Home Assistant
+
+### Option 2: Standalone Python Script (Quick Testing)
+
+For quick testing without Docker/Frigate:
+
+```bash
+# Run live detection with overlays
+cd /home/crtr/Projects/open-hailo
+python3 scripts/preview/hailo_live_overlay.py
+
+# Controls:
+# - Press 's' to save snapshot with detections
+# - Press 'q' to quit (if OpenCV available)
+```
+
+**Features:**
+- Direct Hailo inference
+- Real-time bounding boxes
+- Minimal dependencies
+- Good for development/testing
+
+### Option 3: rpicam-apps with JSON Config
+
+Use the built rpicam-apps with detection config:
+
+```bash
+# Ensure driver is loaded
+sudo modprobe hailo_pci
+
+# Run with detection overlay
+~/local/bin/rpicam-hello -t 0 \
+  --post-process-file /usr/share/pi-camera-assets/hailo_yolov8_inference.json \
+  --lores-width 640 --lores-height 640
+```
+
+---
+
 ## ✅ Setup Checklist
 
 - [ ] Run hardware tests (`./scripts/utils/run_complete_test.sh`)
