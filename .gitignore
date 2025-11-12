@@ -1,32 +1,37 @@
 # Build artifacts
 build/
 *.o
-*.ko
-*.mod
-*.mod.c
-*.cmd
-.tmp_versions/
-Module.symvers
-modules.order
-
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-
-# Compiled binaries
-device_test
-hailortcli
-*.so
 *.a
+*.so
+*.exe
+*.out
+
+# Build directories
+apps/build/
+runtime/hailort/build/
+rpicam-apps-build/
+
+# Temporary files
+*.log
+/tmp/
+*.tmp
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
 venv/
-.env
+env/
+
+# Models (large files, download separately)
+models/*.hef
+
+# Captured frames
+test/test_*.jpg
+test/test_*.jpeg
+preview_frames/
 
 # IDE
 .vscode/
@@ -35,17 +40,12 @@ venv/
 *.swo
 *~
 
-# Hailo specific
-*.hef
-*.onnx
-*.tflite
-hailo8_fw*.bin
-*.log
-
-# Downloaded source repositories (keep our own code)
-drivers/hailort-drivers/
-runtime/hailort/
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
+
+# TAPPAS build artifacts
+tappas/
+
+# User-specific
+local/
