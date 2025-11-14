@@ -233,7 +233,7 @@ See [docs/operations/troubleshooting.md](docs/operations/troubleshooting.md) for
 
 ## 🤝 Contributing
 
-See [docs/development/contributing.md](docs/development/contributing.md) for contribution guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
