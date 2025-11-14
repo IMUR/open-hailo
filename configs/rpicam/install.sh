@@ -34,8 +34,34 @@ fi
 echo "✅ HailoRT detected"
 echo ""
 
-# Step 2: Check if rpicam-apps with Hailo is already built
-echo "Step 2: Checking for rpicam-apps with Hailo support..."
+# Step 2: Check for TAPPAS (required for Hailo post-processing)
+echo "Step 2: Checking for TAPPAS..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+if pkg-config --exists hailo-tappas-core 2>/dev/null; then
+    TAPPAS_VERSION=$(pkg-config --modversion hailo-tappas-core)
+    echo "✅ TAPPAS Core $TAPPAS_VERSION found"
+else
+    echo "⚠️  TAPPAS not found!"
+    echo ""
+    echo "TAPPAS is required for rpicam-apps Hailo post-processing."
+    echo "Without TAPPAS, the Hailo inference stages won't be compiled."
+    echo ""
+    read -p "Install TAPPAS now? (recommended) [Y/n] " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+        "$PROJECT_ROOT/scripts/setup/install_tappas.sh"
+        if [ $? -ne 0 ]; then
+            echo "❌ TAPPAS installation failed"
+            exit 1
+        fi
+    else
+        echo "⚠️  Continuing without TAPPAS (Hailo post-processing will not work)"
+    fi
+fi
+echo ""
+
+# Step 3: Check if rpicam-apps with Hailo is already built
+echo "Step 3: Checking for rpicam-apps with Hailo support..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if rpicam-hello --version 2>&1 | grep -q "post-process"; then
     echo "✅ rpicam-apps appears to be installed"
@@ -57,16 +83,16 @@ else
 fi
 echo ""
 
-# Step 3: Install inference configuration
-echo "Step 3: Installing inference configuration..."
+# Step 4: Install inference configuration
+echo "Step 4: Installing inference configuration..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 sudo mkdir -p /usr/share/pi-camera-assets
 sudo cp "$PROJECT_ROOT/configs/rpicam/hailo_yolov8_inference.json" /usr/share/pi-camera-assets/
 echo "✅ Configuration installed to /usr/share/pi-camera-assets/"
 echo ""
 
-# Step 4: Verify camera
-echo "Step 4: Verifying camera detection..."
+# Step 5: Verify camera
+echo "Step 5: Verifying camera detection..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 if rpicam-hello --list-cameras 2>&1 | grep -q "Available cameras"; then
     echo "✅ Camera detected:"
@@ -78,12 +104,14 @@ else
 fi
 echo ""
 
-# Step 5: Test inference
-echo "Step 5: Testing Hailo inference (5 seconds)..."
-echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "Running: rpicam-hello -t 5000 --post-process-file /usr/share/pi-camera-assets/hailo_yolov8_inference.json"
-timeout 10 rpicam-hello -t 5000 --post-process-file /usr/share/pi-camera-assets/hailo_yolov8_inference.json 2>&1 || true
-echo ""
+# Step 6: Test inference (only if TAPPAS is installed)
+if pkg-config --exists hailo-tappas-core 2>/dev/null; then
+    echo "Step 6: Testing Hailo inference (5 seconds)..."
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo "Running: rpicam-hello -t 5000 --post-process-file /usr/share/pi-camera-assets/hailo_yolov8_inference.json"
+    timeout 10 rpicam-hello -t 5000 --post-process-file /usr/share/pi-camera-assets/hailo_yolov8_inference.json 2>&1 || true
+    echo ""
+fi
 
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║                  Installation Complete!                    ║"

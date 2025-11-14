@@ -28,7 +28,6 @@ REQUIRED_PACKAGES=(
     ninja-build
     ccache
     pkg-config
-    uv
 )
 
 # Optional but recommended packages
@@ -38,6 +37,11 @@ OPTIONAL_PACKAGES=(
     python3.12
     python3.12-dev
     python3.12-venv
+)
+
+# Python tools (installed via pip if not in apt)
+PYTHON_TOOLS=(
+    uv
 )
 
 echo "╔════════════════════════════════════════════════════════════╗"
@@ -128,6 +132,22 @@ if [ ${#MISSING_OPTIONAL[@]} -gt 0 ]; then
     fi
 fi
 
+# Install Python tools via pip
+echo ""
+echo "Installing Python tools..."
+for tool in "${PYTHON_TOOLS[@]}"; do
+    if command -v "$tool" >/dev/null 2>&1; then
+        echo "  ✅ $tool already installed"
+    else
+        echo "  Installing $tool via pip..."
+        if pip3 install --user "$tool" 2>/dev/null; then
+            echo "  ✅ $tool installed"
+        else
+            echo "  ⚠️  Failed to install $tool (may not be critical)"
+        fi
+    fi
+done
+
 # Verify critical tools
 echo ""
 echo "Verifying critical tools:"
@@ -137,11 +157,11 @@ command -v ninja >/dev/null 2>&1 && echo "  ✅ Ninja: $(ninja --version)" || ec
 command -v python3 >/dev/null 2>&1 && echo "  ✅ Python: $(python3 --version)" || echo "  ❌ Python3 not found"
 command -v gcc >/dev/null 2>&1 && echo "  ✅ GCC: $(gcc --version | head -1)" || echo "  ❌ GCC not found"
 command -v gcc-12 >/dev/null 2>&1 && echo "  ✅ GCC-12: $(gcc-12 --version | head -1)" || echo "  ⚠️  GCC-12 not found (optional)"
-command -v uv >/dev/null 2>&1 && echo "  ✅ UV: $(uv --version)" || echo "  ⚠️  UV not found (optional)"
+command -v uv >/dev/null 2>&1 && echo "  ✅ uv: $(uv --version)" || echo "  ⚠️  uv not found (needed for TAPPAS)"
 
 echo ""
 echo "✅ Build dependencies check complete!"
 echo ""
 echo "Next steps:"
-echo "  1. Build HailoRT driver: ./scripts/setup/build_hailort_driver.sh"
-echo "  2. Build HailoRT library: ./scripts/setup/build_hailort_library.sh"
+echo "  1. Install TAPPAS (for rpicam-apps Hailo support): ./scripts/setup/install_tappas.sh"
+echo "  2. Or build HailoRT driver: ./scripts/setup/build_hailort_driver.sh"

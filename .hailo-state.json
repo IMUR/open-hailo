@@ -1,0 +1,79 @@
+{
+  "version": "1.0.0",
+  "last_updated": "",
+  "system": {
+    "hardware": "",
+    "os": "",
+    "os_version": "",
+    "kernel": "",
+    "architecture": "",
+    "python_version": ""
+  },
+  "components": {
+    "hailort": {
+      "installed": false,
+      "version": null,
+      "install_date": null,
+      "install_method": null,
+      "location": null,
+      "log_file": null
+    },
+    "hailo_driver": {
+      "installed": false,
+      "version": null,
+      "install_date": null,
+      "loaded": false,
+      "log_file": null
+    },
+    "tappas": {
+      "installed": false,
+      "version": null,
+      "install_date": null,
+      "location": null,
+      "log_file": null
+    },
+    "rpicam-apps": {
+      "installed": false,
+      "version": null,
+      "install_date": null,
+      "hailo_support": false,
+      "install_location": null,
+      "log_file": null
+    },
+    "dependencies": {
+      "opencv": {
+        "installed": false,
+        "version": null
+      },
+      "gstreamer": {
+        "installed": false,
+        "version": null
+      },
+      "boost": {
+        "installed": false,
+        "version": null
+      },
+      "uv": {
+        "installed": false,
+        "version": null,
+        "install_method": null
+      }
+    }
+  },
+  "models": {
+    "available": [],
+    "location": null
+  },
+  "logs": {
+    "directory": null,
+    "retention_days": 30,
+    "files": []
+  },
+  "capabilities": {
+    "hailo_device_detected": false,
+    "camera_detected": false,
+    "can_run_inference": false,
+    "can_use_rpicam": false,
+    "can_use_python_api": false
+  }
+}

@@ -4,21 +4,31 @@ Hailo TAPPAS (Application Library) for GStreamer-based AI pipelines.
 
 ## Status
 
-🚧 **Under Development for Trixie**
+✅ **TAPPAS Core Libraries Available**
 
-TAPPAS installation on Raspberry Pi OS Trixie requires additional compatibility work due to Python 3.13 and GCC 14.
+TAPPAS core C++ post-processing libraries are used by rpicam-apps for Hailo inference. The full TAPPAS GStreamer pipeline system is under development for Trixie.
 
 ## What is TAPPAS?
 
-- GStreamer plugins for Hailo inference
-- Pre-built AI pipelines
-- Multi-stream processing
-- Production-grade performance
+TAPPAS is a standalone product providing:
+- **C++ post-processing libraries** - Used by rpicam-apps ✅
+- GStreamer plugins for Hailo inference - Not needed for rpicam-apps
+- Pre-built AI pipelines - Not needed for rpicam-apps
+- Multi-stream processing - Not needed for rpicam-apps
 
-## Alternative Options (Available Now)
+## Important: Two Different Use Cases
 
-- **rpicam-apps:** [rpicam.md](rpicam.md) - Similar performance, works now
-- **Python Direct:** [python-direct.md](python-direct.md) - Custom pipelines
+### 1. TAPPAS Core for rpicam-apps (Working Now)
+- Installs C++ libraries system-wide
+- No Python virtual environment needed
+- Provides post-processing for rpicam-apps
+- See: [rpicam.md](rpicam.md)
+
+### 2. Full TAPPAS GStreamer Pipelines (Under Development)
+- Complete standalone product
+- Requires Python 3.13 compatibility work
+- Alternative to rpicam-apps approach
+- Use rpicam-apps instead for now
 
 ## Official Resources
 
