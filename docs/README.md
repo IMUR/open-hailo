@@ -30,7 +30,7 @@ Building or extending the system:
 - **[Build Guide](development/build.md)** - Compile from source
 - **[API Reference](development/api.md)** - HailoRT APIs
 - **[Development Guide](development/development-guide.md)** - Project structure & workflow
-- **[Contributing](development/contributing.md)** - How to contribute
+- **[Contributing](../CONTRIBUTING.md)** - How to contribute
 - **[Install Dependencies](development/install-deps.md)** - Development dependencies
 
 ### 🔨 Operations
