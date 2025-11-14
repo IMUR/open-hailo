@@ -1,37 +1,17 @@
-# Build artifacts
-build/
-*.o
-*.a
-*.so
-*.exe
-*.out
-
-# Build directories
-apps/build/
-runtime/hailort/build/
-rpicam-apps-build/
-
-# Temporary files
-*.log
-/tmp/
-*.tmp
-
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
+.venv/
 venv/
+ENV/
 env/
-
-# Models (large files, download separately)
-models/*.hef
-
-# Captured frames
-test/test_*.jpg
-test/test_*.jpeg
-preview_frames/
+*.egg-info/
+dist/
+build/
+*.egg
 
 # IDE
 .vscode/
@@ -39,13 +19,61 @@ preview_frames/
 *.swp
 *.swo
 *~
-
-# OS
 .DS_Store
-Thumbs.db
 
-# TAPPAS build artifacts
-tappas/
+# Logs
+*.log
+logs/*.log
+hailort.log
 
-# User-specific
-local/
+# Build artifacts
+*.o
+*.ko
+*.ko.xz
+*.a
+*.so.*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+build/
+*-build/
+*-subbuild/
+
+# Models (large files)
+*.hef
+!models/README.md
+!models/*/README.md
+
+# Configuration backups
+*.bak
+*.backup
+*~
+
+# Frigate
+configs/frigate/docker/storage/
+configs/frigate/native/storage/
+
+# Test outputs
+preview_frames/
+*.h264
+*.mp4
+*.jpg
+*.png
+test_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# System
+.Trash-*/
+*.pid
+
+# tarballs (keep in repo for offline install)
+# Uncomment if you want to ignore them:
+# *.tar.gz
+# *.tar.xz
+# *.zip

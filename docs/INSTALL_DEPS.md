@@ -40,7 +40,7 @@ sudo python3 -m pip install libhailort/bindings/python/
 After installation, test with:
 
 ```bash
-cd /home/crtr/Projects/open-hailo
+cd .
 
 # Test OpenCV camera preview
 python3 scripts/preview/simple_camera_test.py

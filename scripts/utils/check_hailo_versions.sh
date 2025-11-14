@@ -75,8 +75,10 @@ echo ""
 
 echo "6. Python Bindings:"
 echo "━━━━━━━━━━━━━━━━━━━━━"
-if [ -d "/home/crtr/Projects/open-hailo/venv" ]; then
-    source /home/crtr/Projects/open-hailo/venv/bin/activate 2>/dev/null
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+if [ -d "$PROJECT_ROOT/.venv" ]; then
+    source "$PROJECT_ROOT/.venv/bin/activate" 2>/dev/null
     if python -c "from hailo_platform import HEF" 2>/dev/null; then
         echo -e "   ${GREEN}✓${NC} Python bindings working"
         PYTHON_VERSION=$(python --version | cut -d' ' -f2)

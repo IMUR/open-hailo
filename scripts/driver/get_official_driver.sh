@@ -13,7 +13,8 @@ echo ""
 echo "Step 1: Cloning official HailoRT drivers repository..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-cd /home/crtr/Projects/open-hailo
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+cd "$PROJECT_ROOT/hailort"
 
 if [ -d "hailort-drivers-official" ]; then
     echo "Repository exists, updating..."

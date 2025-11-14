@@ -9,8 +9,8 @@ echo "║     Installing Official Hailo Driver Permanently           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
-PROJECT_ROOT="/home/crtr/Projects/open-hailo"
-DRIVER_DIR="$PROJECT_ROOT/hailort-drivers-official/linux/pcie"
+PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+DRIVER_DIR="$PROJECT_ROOT/hailort/hailort-drivers-official/linux/pcie"
 KERNEL_VER=$(uname -r)
 
 # v5.1.1+ uses hailo1x_pci.ko, older versions use hailo_pci.ko

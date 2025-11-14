@@ -193,7 +193,7 @@ To build the C++ examples in `apps/`:
 If you need to rebuild after code changes:
 
 ```bash
-cd /home/crtr/Projects/open-hailo
+cd .
 rm -rf ~/rpicam-apps-build    # Clean slate
 ./scripts/build/build_hailo_preview_local.sh
 ```

@@ -9,7 +9,7 @@ Complete setup guide for Hailo-8 + Raspberry Pi 5 + OV5647 camera with YOLOv8 li
 ### One-Command Automated Setup:
 
 ```bash
-cd /home/crtr/Projects/open-hailo
+cd .
 ./setup
 ```
 
@@ -58,7 +58,7 @@ cd models
 **Create HailoRT symlink (if not done):**
 ```bash
 mkdir -p ~/tappas/hailort
-ln -s /home/crtr/Projects/open-hailo/runtime/hailort ~/tappas/hailort/sources
+ln -s ./runtime/hailort ~/tappas/hailort/sources
 ```
 
 **Patch for uv (if not done):**
@@ -89,7 +89,7 @@ cd ~/tappas
 **Note:** This requires TAPPAS to be installed first.
 
 ```bash
-cd /home/crtr/Projects/open-hailo
+cd .
 ./scripts/build/build_hailo_preview_local.sh
 ```
 
@@ -127,7 +127,7 @@ Edit `test/hailo_yolov8_custom.json`:
 ```json
 {
     "hailo_yolo_inference": {
-        "hef_file": "/home/crtr/Projects/open-hailo/models/yolov8s.hef",
+        "hef_file": "./models/yolov8s.hef",
         // Change to yolov8n.hef (faster) or yolov8m.hef (more accurate)
     }
 }
@@ -362,7 +362,7 @@ Frigate provides a complete NVR solution with recording, events, and web UI:
 
 ```bash
 # Setup and configure Frigate with Hailo-8
-cd /home/crtr/Projects/open-hailo
+cd .
 ./setup_hailo_frigate.sh
 
 # Start Frigate
@@ -386,7 +386,7 @@ For quick testing without Docker/Frigate:
 
 ```bash
 # Run live detection with overlays (requires hailo_platform)
-cd /home/crtr/Projects/open-hailo
+cd .
 source .venv/bin/activate  # Activate virtual environment
 python3 scripts/preview/hailo_live_overlay.py
 

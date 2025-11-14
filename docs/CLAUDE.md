@@ -44,7 +44,7 @@ cd ~/tappas
 ./install.sh --target-platform rpi5 --skip-hailort --core-only
 
 # Build rpicam-apps with Hailo support (30-60 min)
-cd /home/crtr/Projects/open-hailo
+cd .
 ./scripts/build/build_hailo_preview_local.sh
 # Installs to ~/local/bin (no sudo needed)
 ```
@@ -307,7 +307,7 @@ To switch models, edit `test/hailo_yolov8_custom.json`:
 ```json
 {
     "hailo_yolo_inference": {
-        "hef_file": "/home/crtr/Projects/open-hailo/models/yolov8n.hef",
+        "hef_file": "./models/yolov8n.hef",
         "threshold": 0.5,
         "max_detections": 20
     }

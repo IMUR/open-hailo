@@ -3,7 +3,7 @@
 # Can be run anytime to check system status
 
 SCRIPT_NAME="Hailo Installation Verifier"
-PROJECT_ROOT="${PROJECT_ROOT:-/home/crtr/Projects/open-hailo}"
+PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
 
 echo "╔════════════════════════════════════════════════════════════╗"
 echo "║  $SCRIPT_NAME                       ║"

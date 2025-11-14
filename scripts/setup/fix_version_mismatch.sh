@@ -5,7 +5,7 @@
 set -e
 
 SCRIPT_NAME="HailoRT Version Mismatch Fixer"
-PROJECT_ROOT="${PROJECT_ROOT:-/home/crtr/Projects/open-hailo}"
+PROJECT_ROOT="${PROJECT_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
 TARGET_VERSION="4.23.0"
 
 echo "╔════════════════════════════════════════════════════════════╗"
