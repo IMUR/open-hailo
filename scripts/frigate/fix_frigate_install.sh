@@ -1,0 +1,1 @@
+../configs/frigate/native/fix_frigate_install.sh

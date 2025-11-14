@@ -1,32 +1,17 @@
-# Build artifacts
-build/
-*.o
-*.ko
-*.mod
-*.mod.c
-*.cmd
-.tmp_versions/
-Module.symvers
-modules.order
-
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-
-# Compiled binaries
-device_test
-hailortcli
-*.so
-*.a
-
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+.venv/
 venv/
-.env
+ENV/
+env/
+*.egg-info/
+dist/
+build/
+*.egg
 
 # IDE
 .vscode/
@@ -34,18 +19,61 @@ venv/
 *.swp
 *.swo
 *~
-
-# Hailo specific
-*.hef
-*.onnx
-*.tflite
-hailo8_fw*.bin
-*.log
-
-# Downloaded source repositories (keep our own code)
-drivers/hailort-drivers/
-runtime/hailort/
-
-# OS files
 .DS_Store
-Thumbs.db
+
+# Logs
+*.log
+logs/*.log
+hailort.log
+
+# Build artifacts
+*.o
+*.ko
+*.ko.xz
+*.a
+*.so.*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+build/
+*-build/
+*-subbuild/
+
+# Models (large files)
+*.hef
+!models/README.md
+!models/*/README.md
+
+# Configuration backups
+*.bak
+*.backup
+*~
+
+# Frigate
+configs/frigate/docker/storage/
+configs/frigate/native/storage/
+
+# Test outputs
+preview_frames/
+*.h264
+*.mp4
+*.jpg
+*.png
+test_output/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# System
+.Trash-*/
+*.pid
+
+# tarballs (keep in repo for offline install)
+# Uncomment if you want to ignore them:
+# *.tar.gz
+# *.tar.xz
+# *.zip

@@ -1,0 +1,1 @@
+../configs/python-direct/examples/live_detection.py

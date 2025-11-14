@@ -1,0 +1,1 @@
+../configs/python-direct/examples/simulator_mode.py

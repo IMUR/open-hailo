@@ -2,6 +2,15 @@
 
 First off, thank you for considering contributing to Open Hailo! It's people like you that make Open Hailo a great tool for the community.
 
+## 📋 Project Rules & Guidelines
+
+### Documentation Management
+**IMPORTANT: Always update existing documentation instead of creating new documents.**
+- Before creating any new document, check if the content belongs in an existing file
+- If updating existing docs, maintain the current structure and style
+- If a new document is absolutely necessary, it becomes the canonical source for that topic
+- Avoid creating temporary or duplicate documentation files
+
 ## How Can I Contribute?
 
 ### Reporting Bugs

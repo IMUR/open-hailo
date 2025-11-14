@@ -1,0 +1,1 @@
+../configs/frigate/native/setup_frigate_caddy.sh

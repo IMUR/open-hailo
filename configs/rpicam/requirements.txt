@@ -1,0 +1,26 @@
+# System packages required for rpicam-apps with Hailo support
+# Install with: sudo apt install <package>
+
+# Build tools
+cmake
+meson
+ninja-build
+pkg-config
+g++
+
+# libcamera and dependencies
+libcamera-dev
+libcamera-apps
+
+# Boost (for HailoRT)
+libboost-all-dev
+
+# Other dependencies
+libjpeg-dev
+libpng-dev
+libtiff-dev
+
+# Optional: For video playback/conversion
+vlc
+ffmpeg
+
