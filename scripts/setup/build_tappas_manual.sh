@@ -48,13 +48,24 @@ if ! pkg-config --exists HailoRT; then
     export PKG_CONFIG_PATH="/usr/local/lib/cmake/HailoRT:$PKG_CONFIG_PATH"
 fi
 
-# Configure meson
+# Configure meson with correct options for TAPPAS core
+# Point to actual locations of dependencies
+# Also set CXXFLAGS to include header directories
+export CXXFLAGS="-I$TAPPAS_DIR/sources/xtl/include -I$TAPPAS_DIR/sources/xtensor/include -I$TAPPAS_DIR/sources/xtensor-blas/include -I$TAPPAS_DIR/sources/rapidjson/include $CXXFLAGS"
+
 meson setup "$BUILD_DIR" \
     --prefix=/usr/local \
     --libdir=lib \
     --buildtype=release \
-    -Dcompile_gstreamer=false \
-    -Dcompile_apps=false
+    -Dtarget=libs \
+    -Dtarget_platform=rpi5 \
+    -Dinclude_python=false \
+    -Dlibxtensor="$TAPPAS_DIR/sources/xtensor" \
+    -Dlibblas="$TAPPAS_DIR/sources/xtensor-blas" \
+    -Dlibcxxopts="$TAPPAS_DIR/sources/cxxopts" \
+    -Dlibrapidjson="$TAPPAS_DIR/sources/rapidjson/include" \
+    -Dpybind11="$TAPPAS_DIR/sources/pybind11" \
+    -Dlibcatch2="$TAPPAS_DIR/sources/Catch2"
 
 echo "✅ Meson configuration complete"
 echo ""
@@ -89,9 +100,46 @@ sudo ldconfig
 echo "✅ Library cache updated"
 echo ""
 
-# Step 6: Verify
+# Step 6: Install Headers
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "STEP 6: Verifying installation"
+echo "STEP 6: Installing headers"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+sudo mkdir -p /usr/include/hailo/tappas
+sudo cp -r "$TAPPAS_DIR/core/hailo/libs/postprocesses" /usr/include/hailo/tappas/
+sudo cp -r "$TAPPAS_DIR/core/hailo/general" /usr/include/hailo/tappas/
+sudo cp -r "$TAPPAS_DIR/core/hailo/libs/croppers" /usr/include/hailo/tappas/ 2>/dev/null || true
+sudo cp -r "$TAPPAS_DIR/core/hailo/libs/tools" /usr/include/hailo/tappas/ 2>/dev/null || true
+sudo cp -r "$TAPPAS_DIR/core/hailo/plugins/common" /usr/include/hailo/tappas/ 2>/dev/null || true
+
+echo "✅ Headers installed to /usr/include/hailo/tappas/"
+echo ""
+
+# Step 7: Create pkg-config file
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "STEP 7: Creating pkg-config file"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+sudo tee /usr/lib/aarch64-linux-gnu/pkgconfig/hailo-tappas-core.pc > /dev/null <<EOF
+prefix=/usr
+libdir=/usr/lib/aarch64-linux-gnu
+tappas_libdir=\${libdir}/hailo/tappas
+includedir=\${prefix}/include/hailo/tappas
+tappas_sources=$TAPPAS_DIR/sources
+
+Name: hailo-tappas-core
+Description: Hailo TAPPAS Core post-processing libraries
+Version: 5.1.0
+Libs: -L\${tappas_libdir}/post_processes
+Cflags: -I\${includedir}/postprocesses -I\${includedir}/general -I\${tappas_sources}/xtensor/include -I\${tappas_sources}/xtl/include -I\${tappas_sources}/rapidjson/include
+EOF
+
+echo "✅ pkg-config file created"
+echo ""
+
+# Step 8: Verify
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "STEP 8: Verifying installation"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if pkg-config --exists hailo-tappas-core; then
@@ -102,6 +150,8 @@ if pkg-config --exists hailo-tappas-core; then
     echo "  Prefix: $(pkg-config --variable=prefix hailo-tappas-core)"
     echo "  Libdir: $(pkg-config --variable=libdir hailo-tappas-core)"
     echo "  Include: $(pkg-config --variable=includedir hailo-tappas-core)"
+    echo ""
+    echo "Cflags: $(pkg-config --cflags hailo-tappas-core)"
 
     # List post-processing libraries
     LIBDIR=$(pkg-config --variable=libdir hailo-tappas-core)

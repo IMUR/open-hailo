@@ -41,12 +41,17 @@ if pkg-config --exists hailo-tappas-core 2>/dev/null; then
     TAPPAS_VERSION=$(pkg-config --modversion hailo-tappas-core)
     echo "✅ TAPPAS Core $TAPPAS_VERSION found"
 else
-    echo "⚠️  TAPPAS not found!"
+    echo "⚠️  TAPPAS Core not found!"
     echo ""
-    echo "TAPPAS is required for rpicam-apps Hailo post-processing."
-    echo "Without TAPPAS, the Hailo inference stages won't be compiled."
+    echo "TAPPAS Core C++ libraries are required for rpicam-apps Hailo post-processing."
+    echo "Without TAPPAS Core, the Hailo inference stages won't be compiled."
     echo ""
-    read -p "Install TAPPAS now? (recommended) [Y/n] " -n 1 -r
+    echo "This will install:"
+    echo "  - C++ post-processing libraries (system-wide)"
+    echo "  - pkg-config files"
+    echo "  - NO Python virtual environment (C++ only)"
+    echo ""
+    read -p "Install TAPPAS Core now? (recommended) [Y/n] " -n 1 -r
     echo
     if [[ ! $REPLY =~ ^[Nn]$ ]]; then
         "$PROJECT_ROOT/scripts/setup/install_tappas.sh"
