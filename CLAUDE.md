@@ -30,8 +30,8 @@ make
 # Run comprehensive system verification
 ./scripts/setup/verify_hailo_installation.sh
 
-# Build rpicam-apps with Hailo support (30-50 minutes)
-./scripts/build/build_hailo_preview_local.sh
+# Install the recommended rpicam-apps stack (same as setup option 5)
+./configs/rpicam/install.sh
 ```
 
 ### Running Detection
@@ -150,8 +150,9 @@ scripts/            # Organized automation scripts
 ├── setup/          # Installation scripts
 ├── driver/         # Driver management
 ├── diagnostics/    # Troubleshooting tools
-├── build/          # Build automation
-└── demos/          # Demo scripts
+├── demos/          # Demo scripts
+├── build/          # Build orchestration (only when necessary)
+└── utils/          # Helper utilities
 
 models/             # HEF model files storage
 ├── x86-models/     # Works with rpicam-apps (any page size)

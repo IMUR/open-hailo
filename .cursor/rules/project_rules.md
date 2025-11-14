@@ -23,21 +23,25 @@
    - No temporary or duplicate files
 
 4. **Document purposes:**
-   - `README.md` - Project overview and quick start
-   - `docs/SETUP.md` - Installation and setup
-   - `docs/BUILD.md` - Build instructions
-   - `docs/API.md` - API reference and examples
-   - `docs/DEVELOPMENT.md` - Developer guide and project structure
-   - `docs/CONTRIBUTING.md` - Contribution guidelines and project rules
+   - `README.md` - Project overview, quick start entry points, repository map
+   - `docs/getting-started/quickstart.md` - Fast path install steps
+   - `docs/getting-started/setup-details.md` - Deep-dive setup and environment notes
+   - `docs/deployments/<name>.md` - Deployment-specific guidance (rpicam, python-direct, frigate, tappas, opencv-custom)
+   - `docs/development/` - Build, API, contributor development workflows
+   - `docs/operations/troubleshooting.md` - Runtime diagnostics and fixes
+   - `CONTRIBUTING.md` (root) - Contribution guidelines and repository rules
 
 ## File Organization
 
 ### Scripts
-- All scripts must go in `/scripts/` subdirectories:
-  - `/scripts/setup/` - Installation and configuration
-  - `/scripts/build/` - Compilation and building
-  - `/scripts/preview/` - Camera and visualization
-  - `/scripts/utils/` - Testing and utilities
+- All scripts must live under `/scripts/` subdirectories:
+  - `/scripts/setup/` - Installation, verification, diagnostics launching
+  - `/scripts/driver/` - Driver acquisition, build, installation
+  - `/scripts/diagnostics/` - Troubleshooting helpers
+  - `/scripts/demos/` - Example/demo launchers
+  - `/scripts/utils/` - Miscellaneous helpers (version checks, etc.)
+  - `/scripts/build/` - Heavy build orchestration when required
+- Deployment-specific install/launch logic belongs in `configs/<deployment>/install.sh`
 
 ### Code
 - C++ examples in `/apps/`
