@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
 Live camera preview with Hailo-8 object detection overlays
-Works without Frigate - direct Hailo inference with bounding boxes
+Direct Hailo inference with real-time bounding boxes
+
+⚠️  REQUIRES: HailoRT Python bindings (hailo_platform module)
+
+This script performs REAL Hailo-8 inference using the hailo_platform
+module. Ensure HailoRT is properly installed with Python support.
+
+For camera testing without HailoRT, use hailo_preview_no_cv.py instead.
 """
 
 import sys

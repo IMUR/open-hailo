@@ -1,0 +1,6 @@
+argcomplete
+contextlib2
+future
+netaddr
+netifaces
+numpy<2

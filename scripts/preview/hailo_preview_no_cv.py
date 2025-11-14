@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """
-Hailo-8 Live Preview WITHOUT OpenCV
-Uses PIL for image processing and saves frames with detections
+Hailo-8 Camera Preview WITHOUT OpenCV - SIMULATOR MODE
+Uses PIL for image processing and saves frames
+
+⚠️  WARNING: This is a SIMULATOR - no actual Hailo inference!
+    For real detection, use hailo_live_overlay.py with hailo_platform installed.
+
+This script demonstrates camera capture and image processing without
+requiring HailoRT Python bindings. Useful for testing camera functionality.
 """
 
 import sys
@@ -13,21 +19,32 @@ from PIL import Image, ImageDraw, ImageFont
 from threading import Thread, Lock
 import queue
 
-# Simple Hailo detection simulator (replace with actual Hailo code when available)
-class HailoYOLOv8Simple:
-    """Simplified YOLOv8 detector for Hailo-8"""
+# SIMULATOR: No actual Hailo detection
+class HailoYOLOv8Simulator:
+    """
+    SIMULATOR MODE - No actual Hailo inference
+    
+    This is a placeholder class for testing camera functionality
+    without requiring HailoRT Python bindings.
+    
+    For real detection, use hailo_live_overlay.py instead.
+    """
     
     def __init__(self, model_path, threshold=0.5):
-        self.model_path = Path(model_path)
+        self.model_path = Path(model_path) if model_path else None
         self.threshold = threshold
-        print(f"Hailo model: {self.model_path.name}")
-        # In real implementation, initialize Hailo here
+        if self.model_path:
+            print(f"⚠️  SIMULATOR MODE: Model file '{self.model_path.name}' loaded")
+            print(f"    (No actual inference - camera preview only)")
         
     def detect(self, image_array):
-        """Simulate detection - replace with actual Hailo inference"""
-        # This is a placeholder - actual implementation would use HailoRT
-        # For now, return empty list or dummy detections
-        return []
+        """
+        SIMULATOR: Returns empty list - no actual detection
+        
+        For real Hailo inference, use hailo_live_overlay.py with
+        hailo_platform module installed.
+        """
+        return []  # No detections in simulator mode
 
 class CameraPreviewNoCv:
     """Camera preview without OpenCV dependency"""
@@ -35,7 +52,7 @@ class CameraPreviewNoCv:
     def __init__(self, model_path=None, save_interval=30):
         self.model_path = model_path
         self.save_interval = save_interval  # Save frame every N frames
-        self.detector = HailoYOLOv8Simple(model_path) if model_path else None
+        self.detector = HailoYOLOv8Simulator(model_path) if model_path else None
         self.frame_count = 0
         self.running = False
         
@@ -80,7 +97,8 @@ class CameraPreviewNoCv:
     def run(self):
         """Main preview loop"""
         print("═" * 60)
-        print("     Hailo-8 Camera Preview (No OpenCV)")
+        print("     Hailo-8 Camera Preview - SIMULATOR MODE")
+        print("     (No actual Hailo inference)")
         print("═" * 60)
         
         try:

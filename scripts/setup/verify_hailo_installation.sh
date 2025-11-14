@@ -75,7 +75,7 @@ if lsmod | grep -q hailo_pci; then
     fi
 else
     test_result "fail" "hailo_pci driver not loaded"
-    echo "   Fix: Run ./scripts/setup/build_hailort_driver.sh"
+    echo "   Fix: Run ./scripts/driver/get_official_driver.sh && sudo ./scripts/driver/install_official_driver.sh"
 fi
 
 # 2. Device Detection
@@ -117,13 +117,13 @@ if command -v hailortcli >/dev/null 2>&1; then
     # Check for version mismatch
     if hailortcli fw-control identify 2>&1 | grep -q "Unsupported firmware"; then
         test_result "warn" "Version mismatch between host and device"
-        echo "   Fix: Run ./scripts/setup/build_hailort_library.sh"
+        echo "   Fix: Rebuild HailoRT from hailort-5.1.1/ directory (see docs/DEVELOPMENT.md)"
     else
         test_result "pass" "No version mismatch detected"
     fi
 else
     test_result "fail" "HailoRT CLI not installed"
-    echo "   Fix: Run ./scripts/setup/build_hailort_library.sh"
+    echo "   Fix: Rebuild HailoRT from hailort-5.1.1/ directory (see docs/DEVELOPMENT.md)"
 fi
 
 # Check library file
@@ -183,13 +183,13 @@ if [ -d "$PROJECT_ROOT/venv" ]; then
         echo "   Python version in venv: $PYTHON_VERSION"
     else
         test_result "fail" "Python bindings not working"
-        echo "   Fix: Run ./scripts/setup/build_python_bindings.sh"
+        echo "   Fix: Build Python bindings from hailort-5.1.1/hailort/libhailort/bindings/python/platform/"
     fi
     
     deactivate 2>/dev/null
 else
     test_result "warn" "Virtual environment not found"
-    echo "   Fix: Run ./scripts/setup/build_python_bindings.sh"
+    echo "   Fix: Build Python bindings from hailort-5.1.1/hailort/libhailort/bindings/python/platform/"
 fi
 
 # 6. Model Files
@@ -301,16 +301,27 @@ else
     echo "Recommended fix order:"
     
     if ! lsmod | grep -q hailo_pci; then
-        echo "  1. ./scripts/setup/build_hailort_driver.sh"
+        echo "  1. Get/install official driver:"
+        echo "     ./scripts/driver/get_official_driver.sh"
+        echo "     sudo ./scripts/driver/install_official_driver.sh"
     fi
     
     if ! command -v hailortcli >/dev/null 2>&1; then
-        echo "  2. ./scripts/setup/build_hailort_library.sh"
+        echo "  2. Rebuild HailoRT library:"
+        echo "     cd hailort-5.1.1 && mkdir -p build && cd build"
+        echo "     cmake .. -DCMAKE_BUILD_TYPE=Release && make -j\$(nproc)"
+        echo "     sudo make install && sudo ldconfig"
     fi
     
-    if [ ! -d "$PROJECT_ROOT/venv" ]; then
-        echo "  3. ./scripts/setup/build_python_bindings.sh"
+    if [ ! -d "$PROJECT_ROOT/.venv" ]; then
+        echo "  3. Build Python bindings (optional):"
+        echo "     cd hailort-5.1.1/hailort/libhailort/bindings/python/platform"
+        echo "     source .venv/bin/activate && pip install setuptools numpy"
+        echo "     python setup.py build && python setup.py install"
     fi
+    
+    echo ""
+    echo "See docs/DEVELOPMENT.md for detailed instructions."
 fi
 
 echo "═══════════════════════════════════════════════════════════"

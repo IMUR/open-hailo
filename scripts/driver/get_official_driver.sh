@@ -1,10 +1,11 @@
 #!/bin/bash
-# Get the official HailoRT driver from GitHub
+# Get, build, and install the official HailoRT driver from GitHub
+# This script does everything - no need to run install_official_driver.sh separately
 
 set -e
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║     Getting Official HailoRT Driver from GitHub            ║"
+echo "║     Getting & Installing Official HailoRT Driver           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -59,9 +60,10 @@ cd linux/pcie
 KERNEL_VER=$(uname -r)
 echo "Building for kernel: $KERNEL_VER"
 
-# Build the driver
+# Build the driver - use 'make all' to actually build
+# (Plain 'make' just shows help in this Makefile)
 make clean 2>/dev/null || true
-make
+make all
 
 if [ -f "hailo_pci.ko" ]; then
     echo "✅ Driver built successfully!"
@@ -126,10 +128,19 @@ echo "╔═══════════════════════�
 echo "║                        Complete!                            ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
+echo "✅ Driver cloned, built, and installed!"
+echo ""
 echo "📁 Driver source: $(pwd)"
-echo "📝 To rebuild: cd $(pwd) && make"
+echo "📝 To rebuild: cd $(pwd) && make clean && make"
+echo "📝 To reinstall: sudo ./scripts/driver/install_official_driver.sh"
+echo ""
+echo "Next steps:"
+echo "  1. Verify installation: ./scripts/setup/verify_hailo_installation.sh"
+echo "  2. Check versions: ./scripts/utils/check_hailo_versions.sh"
+echo "  3. Run detection: ./demo_detection.sh"
 echo ""
 echo "If the driver still doesn't work, try:"
-echo "  1. Check dmesg for errors: dmesg | grep -i hailo"
-echo "  2. Try different version: git checkout <tag> && make"
-echo "  3. Check firmware compatibility"
+echo "  1. Reboot the system (ensures clean driver load)"
+echo "  2. Check dmesg for errors: dmesg | grep -i hailo"
+echo "  3. Try different version: cd $(pwd) && git checkout <tag> && make"
+echo "  4. Check firmware compatibility with: hailortcli fw-control identify"

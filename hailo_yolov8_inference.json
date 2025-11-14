@@ -11,9 +11,9 @@
 
     "hailo_yolo_inference":
     {
-        "hef_file": "/home/crtr/Projects/open-hailo/models/yolov8s.hef",
-        "hef_file_8L": "/home/crtr/Projects/open-hailo/models/yolov8s_h8l.hef",
-        "hef_file_8": "/home/crtr/Projects/open-hailo/models/yolov8s.hef",
+        "hef_file": "/home/crtr/yolov8s.hef",
+        "hef_file_8L": "/home/crtr/yolov8s.hef",
+        "hef_file_8": "/home/crtr/yolov8s.hef",
         "max_detections": 20,
         "threshold": 0.5,
 

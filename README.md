@@ -9,18 +9,24 @@ Real-time object detection with live camera preview and AI inference overlays.
 ## ⚡ Quick Start
 
 ```bash
-# Interactive setup menu
-./setup.sh
+# Run full demo with web interface
+./demo.sh
 ```
 
 **Quick commands:**
 
 ```bash
+# Interactive setup menu
+./setup.sh
+
 # Test system
 ./test.sh
 
 # Start detection
 ./run.sh
+
+# Full demo with web UI
+./demo.sh
 
 # Check compatibility
 ./scripts/diagnostics/check_version_compatibility.sh
@@ -41,6 +47,8 @@ Real-time object detection with live camera preview and AI inference overlays.
 ```
 open-hailo/
 ├── setup.sh                     # Interactive setup menu
+├── demo.sh                      # Full demo with web UI
+├── demo_detection.sh            # Real detection demo
 ├── test.sh                      # Run system tests  
 ├── run.sh                       # Start detection
 ├── docs/                        # 📚 Consolidated documentation
@@ -48,23 +56,27 @@ open-hailo/
 │   ├── BUILD.md                 # Build instructions
 │   ├── API.md                   # API reference
 │   ├── DEVELOPMENT.md           # Developer guide
+│   ├── CONTRIBUTING.md          # Contribution guidelines
 │   └── README.md                # Docs index
 ├── hailort/                     # 🧠 HailoRT consolidated
-│   ├── drivers/                 # PCIe drivers & firmware
-│   └── runtime/                 # HailoRT SDK source
-├── scripts/                     # 🔧 Organized scripts
-│   ├── build/                   # Build rpicam-apps (3)
-│   ├── driver/                  # Driver management (11)
-│   ├── frigate/                 # Frigate NVR (5)
-│   ├── preview/                 # Camera testing (8)
-│   ├── setup/                   # Installation (11)
-│   ├── diagnostics/             # Troubleshooting (5)
-│   ├── quickstart/              # Quick start (3)
-│   └── utils/                   # Utilities (5)
+│   ├── drivers/                 # PCIe drivers & firmware (4.20.0)
+│   └── runtime/                 # HailoRT SDK source (4.20.0)
+├── hailort-5.1.1/               # HailoRT 5.1.1 source
+├── hailort-drivers-5.1.1/       # Official drivers (5.1.1)
+├── hailort-drivers-official/    # Latest official drivers
+├── scripts/                     # 🔧 Organized scripts (14 total)
+│   ├── build/                   # Build scripts (1)
+│   ├── diagnostics/             # Troubleshooting (2)
+│   ├── driver/                  # Driver management (2)
+│   ├── frigate/                 # Frigate NVR setup (3)
+│   ├── preview/                 # Camera preview (2 Python)
+│   ├── setup/                   # Installation (3)
+│   └── utils/                   # Utilities (1)
 ├── apps/                        # 💻 C++ examples
-├── models/                      # 🤖 YOLOv8 models
+├── models/                      # 🤖 YOLOv8 models (.hef files)
 ├── test/                        # 🧪 Test configs
-└── logs/                        # 📝 Log files
+├── logs/                        # 📝 Log files
+└── .venv/                       # Python virtual environment
 ```
 
 ---
@@ -150,10 +162,35 @@ cd test && ./run_complete_test.sh
 
 ## 🔧 Scripts
 
-- **[scripts/setup/](scripts/setup/)** - Installation & downloads (3)
-- **[scripts/build/](scripts/build/)** - Build automation (3)
-- **[scripts/preview/](scripts/preview/)** - Visualization (2)
-- **[scripts/utils/](scripts/utils/)** - Testing (2)
+**Actual Script Inventory (14 scripts total):**
+
+- **[scripts/setup/](scripts/setup/)** - Installation (3 scripts)
+  - `install_build_dependencies.sh` - Install build dependencies
+  - `verify_hailo_installation.sh` - Verify complete installation
+  - `fix_version_mismatch.sh` - Fix version compatibility issues
+
+- **[scripts/build/](scripts/build/)** - Build automation (1 script)
+  - `build_hailo_preview_local.sh` - Build rpicam-apps with Hailo support
+
+- **[scripts/driver/](scripts/driver/)** - Driver management (2 scripts)
+  - `get_official_driver.sh` - Download and build official driver
+  - `install_official_driver.sh` - Install official driver permanently
+
+- **[scripts/diagnostics/](scripts/diagnostics/)** - Troubleshooting (2 scripts)
+  - `check_version_compatibility.sh` - Check system compatibility
+  - `reset_camera.sh` - Reset camera if locked
+
+- **[scripts/frigate/](scripts/frigate/)** - Frigate NVR (3 scripts)
+  - `install_frigate_native.sh` - Native Frigate installation
+  - `fix_frigate_install.sh` - Fix Frigate Python 3.13 issues
+  - `setup_frigate_caddy.sh` - Configure Caddy for Frigate
+
+- **[scripts/preview/](scripts/preview/)** - Camera preview (2 Python scripts)
+  - `hailo_live_overlay.py` - Live detection with OpenCV overlays
+  - `hailo_preview_no_cv.py` - Preview without OpenCV (PIL only)
+
+- **[scripts/utils/](scripts/utils/)** - Utilities (1 script)
+  - `check_hailo_versions.sh` - Check all version info
 
 **Index:** [scripts/README.md](scripts/README.md)
 
@@ -216,8 +253,8 @@ See [docs/setup/SETUP_YOLOV8.md](docs/setup/SETUP_YOLOV8.md#troubleshooting)
 - **Accelerator**: Hailo-8 (PCIe) - Firmware 4.23.0
 - **Computer**: Raspberry Pi 5
 - **Camera**: OV5647 Camera Module
-- **Runtime**: HailoRT 4.23.0
-- **OS**: Raspberry Pi OS (Debian 12+)
+- **Runtime**: HailoRT 5.1.1 / 4.23.0
+- **OS**: Raspberry Pi OS Trixie (Debian 13) - Python 3.13+
 
 ---
 

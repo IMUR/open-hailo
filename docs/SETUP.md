@@ -25,23 +25,26 @@ cd /home/crtr/Projects/open-hailo
 
 ```bash
 # Build tools and libraries
-./scripts/setup/install_build_deps.sh
-
-# TAPPAS dependencies (GStreamer, etc.)
-./scripts/setup/install_tappas_deps.sh
+./scripts/setup/install_build_dependencies.sh
 ```
 
 **Installs:** Boost, GStreamer dev libraries, Cairo, OpenCV, and other required packages.
+
+**Note:** For manual TAPPAS installation, see the official TAPPAS repository.
 
 ---
 
 ### Step 2: Download AI Models (5 min)
 
+YOLOv8 models are available from the Hailo Model Zoo. Download manually to the `models/` directory:
+
 ```bash
-./scripts/setup/download_yolov8_models.sh
+mkdir -p models
+cd models
+# Download from Hailo Model Zoo or use pre-compiled .hef files
 ```
 
-**Downloads:**
+**Recommended Models:**
 - YOLOv8n (8 MB) - Fastest, 100+ FPS
 - YOLOv8s (19 MB) - Recommended, 60-80 FPS ⭐
 - YOLOv8m (29 MB) - Most accurate, 30-50 FPS
@@ -82,6 +85,8 @@ cd ~/tappas
 ---
 
 ### Step 4: Build rpicam-apps with Hailo (45 min)
+
+**Note:** This requires TAPPAS to be installed first.
 
 ```bash
 cd /home/crtr/Projects/open-hailo
@@ -258,52 +263,49 @@ Full class list: https://github.com/ultralytics/ultralytics/blob/main/ultralytic
 
 ## 🔍 Troubleshooting
 
-### TAPPAS Installation Issues
+### Version Compatibility Issues
 
-**"HailoRT sources not found":**
+**Check system compatibility:**
 ```bash
-# Create symlink to your HailoRT sources
-mkdir -p ~/tappas/hailort
-ln -s /home/crtr/Projects/open-hailo/runtime/hailort ~/tappas/hailort/sources
+./scripts/diagnostics/check_version_compatibility.sh
 ```
 
-**"No module named virtualenv":**
+**Fix version mismatches:**
 ```bash
-# Patch install.sh to use uv instead
-cd ~/tappas
-sed -i 's/python3 -m virtualenv/uv venv --python python3/g' install.sh
-sed -i 's/pip3 install/uv pip install/g' install.sh
+./scripts/setup/fix_version_mismatch.sh
 ```
 
-**"Out of memory":**
+### Driver Issues
+
+**Get official driver:**
 ```bash
-# Use fewer cores
-./install.sh --target-platform rpi5 --skip-hailort --core-only --compile-num-of-cores 2
+./scripts/driver/get_official_driver.sh
+./scripts/driver/install_official_driver.sh
 ```
 
-### Build Issues
-
-**"HailoRT version mismatch":**
+**Check driver status:**
 ```bash
-# Fix symlink
-sudo rm /usr/local/lib/libhailort.so
-sudo ln -s /usr/local/lib/libhailort.so.4.23.0 /usr/local/lib/libhailort.so
-sudo ldconfig
-
-# Update CMake configs
-sudo sed -i 's/"4\.20\.0"/"4.23.0"/g' /usr/local/lib/cmake/HailoRT/HailoRTConfigVersion.cmake
-sudo sed -i 's/4\.20\.0/4.23.0/g' /usr/local/lib/cmake/HailoRT/HailoRTTargets-release.cmake
-sudo sed -i 's/MINOR_VERSION=20/MINOR_VERSION=23/g' /usr/local/lib/cmake/HailoRT/HailoRTTargets-release.cmake
+lsmod | grep hailo
+dmesg | grep -i hailo
 ```
 
-**"OpenCV not found":**
+### Installation Verification
+
+**Verify complete installation:**
 ```bash
-sudo apt install -y libopencv-dev
+./scripts/setup/verify_hailo_installation.sh
 ```
 
-**"Boost not found":**
+**Check versions:**
 ```bash
-sudo apt install -y libboost-dev libboost-program-options-dev
+./scripts/utils/check_hailo_versions.sh
+```
+
+### Camera Issues
+
+**Reset camera if locked:**
+```bash
+./scripts/diagnostics/reset_camera.sh
 ```
 
 ### Runtime Issues
@@ -383,8 +385,9 @@ cd ~/frigate
 For quick testing without Docker/Frigate:
 
 ```bash
-# Run live detection with overlays
+# Run live detection with overlays (requires hailo_platform)
 cd /home/crtr/Projects/open-hailo
+source .venv/bin/activate  # Activate virtual environment
 python3 scripts/preview/hailo_live_overlay.py
 
 # Controls:
@@ -397,6 +400,8 @@ python3 scripts/preview/hailo_live_overlay.py
 - Real-time bounding boxes
 - Minimal dependencies
 - Good for development/testing
+
+**Note:** This requires proper HailoRT Python bindings installation.
 
 ### Option 3: rpicam-apps with JSON Config
 

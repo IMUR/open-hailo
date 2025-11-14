@@ -131,46 +131,42 @@ fi
 
 # If quick fixes didn't work, need to rebuild
 echo ""
-echo "Quick fixes insufficient - need to rebuild HailoRT"
+echo "Quick fixes insufficient - need to rebuild HailoRT from source"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
-echo "The following steps are needed to fully fix the version mismatch:"
+echo "MANUAL STEPS REQUIRED:"
 echo ""
-echo "1. Build HailoRT library from source:"
-echo "   ./scripts/setup/build_hailort_library.sh"
+echo "1. Build HailoRT 5.1.1 library:"
+echo "   cd $PROJECT_ROOT/hailort-5.1.1"
+echo "   mkdir -p build && cd build"
+echo "   cmake .. -DCMAKE_BUILD_TYPE=Release"
+echo "   cmake --build . -j\$(nproc)"
+echo "   sudo cmake --install ."
+echo "   sudo ldconfig"
 echo ""
-echo "2. Build Python bindings (if using Python):"
-echo "   ./scripts/setup/build_python_bindings.sh"
+echo "2. Get and install official driver:"
+echo "   cd $PROJECT_ROOT"
+echo "   ./scripts/driver/get_official_driver.sh"
+echo "   sudo ./scripts/driver/install_official_driver.sh"
 echo ""
-echo "3. Verify the fix:"
+echo "3. Build Python bindings (optional, if using Python):"
+echo "   cd $PROJECT_ROOT/hailort-5.1.1/hailort/libhailort/bindings/python/platform"
+echo "   source $PROJECT_ROOT/.venv/bin/activate"
+echo "   pip install setuptools numpy"
+echo "   python setup.py build"
+echo "   python setup.py install"
+echo ""
+echo "4. Verify the fix:"
 echo "   ./scripts/setup/verify_hailo_installation.sh"
 echo ""
-
-read -p "Run the full fix automatically? [y/N] " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ""
-    echo "Running full fix sequence..."
-    echo ""
-    
-    # Run the build scripts
-    "$PROJECT_ROOT/scripts/setup/build_hailort_library.sh" || {
-        echo -e "${RED}Library build failed${NC}"
-        exit 1
-    }
-    
-    if [ -f "$PROJECT_ROOT/scripts/setup/build_python_bindings.sh" ]; then
-        "$PROJECT_ROOT/scripts/setup/build_python_bindings.sh" || {
-            echo -e "${YELLOW}Python bindings build failed (non-critical)${NC}"
-        }
-    fi
-    
-    echo ""
-    echo "═══════════════════════════════════════════════════════════"
-    echo "✅ Version mismatch fix complete!"
-    echo ""
-    echo "Running verification..."
-    "$PROJECT_ROOT/scripts/setup/verify_hailo_installation.sh"
-else
-    echo "Manual fix required. Run the commands shown above."
-fi
+echo "════════════════════════════════════════════════════════════"
+echo ""
+echo -e "${YELLOW}⚠️  AUTOMATED FIX NOT AVAILABLE${NC}"
+echo ""
+echo "This requires manual building due to Trixie (Debian 13) compatibility:"
+echo "  - Python 3.13+ externally-managed-environment (PEP 668)"
+echo "  - GCC 14 compiler issues with older HailoRT versions"
+echo "  - Multiple HailoRT versions on system (4.20.0, 4.23.0, 5.1.1)"
+echo ""
+echo "Use the manual steps above or see docs/DEVELOPMENT.md for details."
+echo ""
