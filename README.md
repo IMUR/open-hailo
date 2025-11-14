@@ -9,36 +9,16 @@ Real-time object detection with live camera preview and AI inference overlays.
 ## ⚡ Quick Start
 
 ```bash
-# Run full demo with web interface
-./demo.sh
-```
-
-**Quick commands:**
-
-```bash
 # Interactive setup menu
 ./setup.sh
-
-# Test system
-./test.sh
-
-# Start detection
-./run.sh
-
-# Full demo with web UI
-./demo.sh
-
-# Check compatibility
-./scripts/diagnostics/check_version_compatibility.sh
-
-# Install Frigate NVR
-./scripts/frigate/install_frigate_native.sh
-
-# Get official driver
-./scripts/driver/get_official_driver.sh
 ```
 
-📖 **Detailed guide:** [docs/SETUP.md](docs/SETUP.md)
+Choose your deployment:
+- **Option 5: rpicam-apps** ⭐ Recommended - works immediately
+- **Option 6: Python Direct** - For custom applications  
+- **Option 7: Frigate NVR** - Video surveillance
+
+📖 **Complete guide:** [docs/getting-started/quickstart.md](docs/getting-started/quickstart.md)
 
 ---
 
@@ -46,37 +26,37 @@ Real-time object detection with live camera preview and AI inference overlays.
 
 ```
 open-hailo/
-├── setup.sh                     # Interactive setup menu
-├── demo.sh                      # Full demo with web UI
-├── demo_detection.sh            # Real detection demo
-├── test.sh                      # Run system tests  
-├── run.sh                       # Start detection
-├── docs/                        # 📚 Consolidated documentation
-│   ├── SETUP.md                 # ⭐ Complete setup guide
-│   ├── BUILD.md                 # Build instructions
-│   ├── API.md                   # API reference
-│   ├── DEVELOPMENT.md           # Developer guide
-│   ├── CONTRIBUTING.md          # Contribution guidelines
-│   └── README.md                # Docs index
-├── hailort/                     # 🧠 HailoRT consolidated
-│   ├── drivers/                 # PCIe drivers & firmware (4.20.0)
-│   └── runtime/                 # HailoRT SDK source (4.20.0)
-├── hailort-5.1.1/               # HailoRT 5.1.1 source
-├── hailort-drivers-5.1.1/       # Official drivers (5.1.1)
-├── hailort-drivers-official/    # Latest official drivers
-├── scripts/                     # 🔧 Organized scripts (14 total)
-│   ├── build/                   # Build scripts (1)
-│   ├── diagnostics/             # Troubleshooting (2)
-│   ├── driver/                  # Driver management (2)
-│   ├── frigate/                 # Frigate NVR setup (3)
-│   ├── preview/                 # Camera preview (2 Python)
-│   ├── setup/                   # Installation (3)
-│   └── utils/                   # Utilities (1)
-├── apps/                        # 💻 C++ examples
-├── models/                      # 🤖 YOLOv8 models (.hef files)
-├── test/                        # 🧪 Test configs
-├── logs/                        # 📝 Log files
-└── .venv/                       # Python virtual environment
+├── setup.sh → scripts/setup.sh  # Main entry point
+├── README.md                     # This file
+├── LICENSE                       # Project license
+├── configs/                      # 5 deployment configurations
+│   ├── rpicam/                   # ⭐ Recommended deployment
+│   ├── python-direct/            # Custom Python applications
+│   ├── frigate/                  # Network video recorder
+│   ├── tappas/                   # GStreamer pipelines
+│   └── opencv-custom/            # Advanced CV pipelines
+├── docs/                         # Organized documentation
+│   ├── getting-started/          # Setup guides
+│   ├── deployments/              # Deployment-specific guides
+│   ├── development/              # Developer resources
+│   ├── operations/               # Troubleshooting
+│   └── appendices/               # Additional notes
+├── models/                       # Model storage
+│   ├── x86-models/               # Works with rpicam-apps
+│   ├── pi5-compatible/           # Works with all methods
+│   └── rpicam-compatible/        # Tested with rpicam
+├── hailort/                      # HailoRT 4.23.0 (consolidated)
+│   ├── hailort-4.23.0/           # Library source
+│   └── hailort-drivers-4.23.0/   # Driver source
+├── scripts/                      # Organized scripts
+│   ├── setup/                    # Installation
+│   ├── driver/                   # Driver management
+│   ├── diagnostics/              # Troubleshooting
+│   ├── demos/                    # Demo scripts
+│   └── utils/                    # Utilities
+├── apps/                         # C++ examples
+├── logs/                         # Log files
+└── .venv/                        # Python environment
 ```
 
 ---
@@ -151,48 +131,37 @@ cd test && ./run_complete_test.sh
 
 ## 📚 Documentation
 
-- **[docs/SETUP.md](docs/SETUP.md)** - Complete setup guide ⭐
-- **[docs/BUILD.md](docs/BUILD.md)** - Building from source
-- **[docs/API.md](docs/API.md)** - API reference & technical details
-- **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** - Developer guide
+**Start here:** [docs/getting-started/quickstart.md](docs/getting-started/quickstart.md) ⭐
 
-**Index:** [docs/README.md](docs/README.md)
+**Documentation Index:** [docs/README.md](docs/README.md)
+
+### Key Guides
+
+- **[Setup Guide](docs/getting-started/setup-details.md)** - Complete installation
+- **[Hardware Compatibility](docs/getting-started/hardware.md)** - Supported devices
+- **[Model Compatibility](docs/getting-started/models.md)** - HEF page size issues
+- **[Troubleshooting](docs/operations/troubleshooting.md)** - Problem solving
+
+### Deployment Guides
+
+- **[rpicam-apps](docs/deployments/rpicam.md)** ⭐ Recommended
+- **[Python Direct](docs/deployments/python-direct.md)** - Custom apps
+- **[Frigate NVR](docs/deployments/frigate.md)** - Surveillance
+- **[TAPPAS](docs/deployments/tappas.md)** - GStreamer
+- **[OpenCV Custom](docs/deployments/opencv-custom.md)** - Advanced
 
 ---
 
-## 🔧 Scripts
+## 🔧 Key Scripts
 
-**Actual Script Inventory (14 scripts total):**
+All scripts are organized in the `scripts/` directory:
 
-- **[scripts/setup/](scripts/setup/)** - Installation (3 scripts)
-  - `install_build_dependencies.sh` - Install build dependencies
-  - `verify_hailo_installation.sh` - Verify complete installation
-  - `fix_version_mismatch.sh` - Fix version compatibility issues
+- **Setup:** `scripts/setup/install_build_dependencies.sh`, `verify_hailo_installation.sh`
+- **Driver:** `scripts/driver/get_official_driver.sh`
+- **Diagnostics:** `scripts/diagnostics/check_version_compatibility.sh`
+- **Demos:** `scripts/demos/demo.sh`, `demo_detection.sh`
 
-- **[scripts/build/](scripts/build/)** - Build automation (1 script)
-  - `build_hailo_preview_local.sh` - Build rpicam-apps with Hailo support
-
-- **[scripts/driver/](scripts/driver/)** - Driver management (2 scripts)
-  - `get_official_driver.sh` - Download and build official driver
-  - `install_official_driver.sh` - Install official driver permanently
-
-- **[scripts/diagnostics/](scripts/diagnostics/)** - Troubleshooting (2 scripts)
-  - `check_version_compatibility.sh` - Check system compatibility
-  - `reset_camera.sh` - Reset camera if locked
-
-- **[scripts/frigate/](scripts/frigate/)** - Frigate NVR (3 scripts)
-  - `install_frigate_native.sh` - Native Frigate installation
-  - `fix_frigate_install.sh` - Fix Frigate Python 3.13 issues
-  - `setup_frigate_caddy.sh` - Configure Caddy for Frigate
-
-- **[scripts/preview/](scripts/preview/)** - Camera preview (2 Python scripts)
-  - `hailo_live_overlay.py` - Live detection with OpenCV overlays
-  - `hailo_preview_no_cv.py` - Preview without OpenCV (PIL only)
-
-- **[scripts/utils/](scripts/utils/)** - Utilities (1 script)
-  - `check_hailo_versions.sh` - Check all version info
-
-**Index:** [scripts/README.md](scripts/README.md)
+See [scripts/README.md](scripts/README.md) for complete inventory.
 
 ---
 
@@ -231,18 +200,12 @@ Edit `test/hailo_yolov8_custom.json`:
 
 ## 🆘 Troubleshooting
 
-### Build Issues
-See [docs/guides/BUILD_INSTRUCTIONS.md](docs/guides/BUILD_INSTRUCTIONS.md#troubleshooting)
+See [docs/operations/troubleshooting.md](docs/operations/troubleshooting.md) for complete problem-solving guide.
 
-### TAPPAS Issues
-See [docs/setup/INSTALL_TAPPAS_GUIDE.md](docs/setup/INSTALL_TAPPAS_GUIDE.md#troubleshooting)
-
-### Model Issues
-See [docs/setup/SETUP_YOLOV8.md](docs/setup/SETUP_YOLOV8.md#troubleshooting)
-
-### Run Tests
+**Quick diagnostics:**
 ```bash
-./scripts/utils/run_complete_test.sh
+./scripts/setup/verify_hailo_installation.sh
+./scripts/diagnostics/check_version_compatibility.sh
 ```
 
 ---
@@ -270,7 +233,7 @@ See [docs/setup/SETUP_YOLOV8.md](docs/setup/SETUP_YOLOV8.md#troubleshooting)
 
 ## 🤝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [docs/development/contributing.md](docs/development/contributing.md) for contribution guidelines.
 
 ---
 
@@ -283,26 +246,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ---
 
-## 🎉 Quick Commands
-
-```bash
-# Full automated setup
-./setup
-
-# Or step by step:
-./scripts/setup/download_yolov8_models.sh          # Download models
-./scripts/setup/install_tappas_deps.sh             # Install deps
-cd ~/tappas && ./install.sh --target-platform rpi5 --skip-hailort --core-only
-./scripts/build/build_hailo_preview_local.sh       # Build everything
-
-# Test hardware
-./scripts/utils/run_complete_test.sh
-
-# Run preview
-export PATH="$HOME/local/bin:$PATH"
-rpicam-hello -t 0 --post-process-file test/hailo_yolov8_custom.json
-```
-
 ---
 
-**Your jerry-rigged Hailo-8 AI vision system - organized and documented!** 🚀✨
+**Production-ready Hailo-8 AI vision system for Raspberry Pi OS Trixie!** 🚀

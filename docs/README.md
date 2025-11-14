@@ -1,83 +1,117 @@
 # Documentation
 
-Consolidated documentation for Hailo-8 + Raspberry Pi 5 + OV5647 AI vision system.
+Welcome to the open-hailo documentation!
+
+## Quick Navigation
+
+### 🚀 Getting Started
+
+New to Hailo-8 on Raspberry Pi? Start here:
+
+- **[Quick Start](getting-started/quickstart.md)** ⭐ Get running in 15-30 minutes
+- **[Complete Setup Guide](getting-started/setup-details.md)** - Detailed step-by-step
+- **[Hardware Compatibility](getting-started/hardware.md)** - Pi models, cameras, specs
+- **[Model Compatibility](getting-started/models.md)** - Understanding HEF page sizes
+
+### 🎯 Deployment Guides
+
+Choose your deployment method:
+
+- **[rpicam-apps](deployments/rpicam.md)** ⭐ Recommended - works with any models
+- **[Python Direct API](deployments/python-direct.md)** - Custom applications
+- **[Frigate NVR](deployments/frigate.md)** - Video surveillance system
+- **[TAPPAS Pipelines](deployments/tappas.md)** - GStreamer (under development)
+- **[OpenCV Custom](deployments/opencv-custom.md)** - Advanced pipelines
+
+### 🔧 Development
+
+Building or extending the system:
+
+- **[Build Guide](development/build.md)** - Compile from source
+- **[API Reference](development/api.md)** - HailoRT APIs
+- **[Development Guide](development/development-guide.md)** - Project structure & workflow
+- **[Contributing](development/contributing.md)** - How to contribute
+- **[Install Dependencies](development/install-deps.md)** - Development dependencies
+
+### 🔨 Operations
+
+Running and maintaining the system:
+
+- **[Troubleshooting](operations/troubleshooting.md)** - Problem solving guide
+
+### 📎 Appendices
+
+- **[Claude AI Notes](appendices/claude.md)** - AI assistant guidance
 
 ---
 
-## 📚 Main Documents
+## Recommended Reading Paths
 
-### 🚀 [SETUP.md](SETUP.md) - **Start Here**
-Complete setup guide with step-by-step instructions:
-- Installing dependencies
-- Downloading YOLOv8 models
-- Installing TAPPAS
-- Building rpicam-apps with Hailo support
-- Running live preview
-- Configuration and usage examples
+### For New Users
 
-### 🏗️ [BUILD.md](BUILD.md) - Building from Source
-Build process documentation:
-- Building rpicam-apps with Hailo
-- Building HailoRT examples
-- Troubleshooting build issues
-- Build optimization tips
+1. [Quick Start](getting-started/quickstart.md) - Get running fast
+2. [rpicam Deployment](deployments/rpicam.md) - Easiest path
+3. [Troubleshooting](operations/troubleshooting.md) - If issues arise
 
-### 📋 [API.md](API.md) - API Reference
-Technical API documentation:
-- HailoRT C++ API
-- Model pipeline architecture
-- Preview and display options
-- Camera integration methods
-- Post-processing stages
+### For Developers
 
-### 🔧 [DEVELOPMENT.md](DEVELOPMENT.md) - Developer Guide
-Development resources:
-- Developer guidelines
-- Build system details
-- Contributing to the project
-- System discovery notes
+1. [API Reference](development/api.md) - Learn the API
+2. [Development Guide](development/development-guide.md) - Project structure
+3. [Build Guide](development/build.md) - Compile from source
+4. [Contributing](development/contributing.md) - Join the project
+
+### For Operators (Frigate/NVR)
+
+1. [Frigate Deployment](deployments/frigate.md) - Setup NVR
+2. [Hardware Compatibility](getting-started/hardware.md) - Storage requirements
+3. [Troubleshooting](operations/troubleshooting.md) - Common issues
+
+### For Python Developers
+
+1. [Python Direct Deployment](deployments/python-direct.md) - Requirements
+2. [Model Compatibility](getting-started/models.md) - Page size issue
+3. [API Reference](development/api.md) - Python API details
 
 ---
 
-## 🎯 Quick Navigation
+## External Resources
 
-| I want to... | See |
-|--------------|-----|
-| Set up my system | [SETUP.md](SETUP.md) |
-| Build from source | [BUILD.md](BUILD.md) |
-| Understand the API | [API.md](API.md) |
-| Develop custom apps | [DEVELOPMENT.md](DEVELOPMENT.md) |
-| Run tests | [../test/README.md](../test/README.md) |
-| Use scripts | [../scripts/README.md](../scripts/README.md) |
+- **Hailo Developer Zone:** https://hailo.ai/developer-zone/
+- **Hailo Model Zoo:** https://github.com/hailo-ai/hailo_model_zoo
+- **Hailo Community:** https://community.hailo.ai
+- **TAPPAS:** https://github.com/hailo-ai/tappas
+- **Raspberry Pi Cameras:** https://www.raspberrypi.com/documentation/computers/camera_software.html
 
 ---
 
-## 📖 Recommended Reading Order
+## Documentation Structure
 
-### First-Time Users:
-1. **[SETUP.md](SETUP.md)** - Follow step-by-step
-2. Run `./setup` in project root
-3. Test with live preview
-
-### Developers:
-1. **[API.md](API.md)** - Learn the HailoRT API
-2. **[DEVELOPMENT.md](DEVELOPMENT.md)** - Development guidelines
-3. Start coding!
-
-### Building from Source:
-1. **[BUILD.md](BUILD.md)** - Build instructions
-2. **[SETUP.md](SETUP.md)** - Prerequisites
-3. Run build scripts
+```
+docs/
+├── README.md (you are here)
+├── getting-started/
+│   ├── quickstart.md
+│   ├── setup-details.md
+│   ├── hardware.md
+│   └── models.md
+├── deployments/
+│   ├── rpicam.md
+│   ├── python-direct.md
+│   ├── frigate.md
+│   ├── tappas.md
+│   └── opencv-custom.md
+├── development/
+│   ├── api.md
+│   ├── build.md
+│   ├── development-guide.md
+│   ├── contributing.md
+│   └── install-deps.md
+├── operations/
+│   └── troubleshooting.md
+└── appendices/
+    └── claude.md
+```
 
 ---
 
-## 🌟 External Resources
-
-- **Hailo TAPPAS**: https://github.com/hailo-ai/tappas
-- **Hailo Model Zoo**: https://github.com/hailo-ai/hailo_model_zoo
-- **RPi Camera**: https://www.raspberrypi.com/documentation/computers/camera_software.html
-- **Hailo Community**: https://community.hailo.ai/
-
----
-
-**Four comprehensive docs. Everything you need.** 🎯
+**Everything you need to get Hailo-8 working on Raspberry Pi OS Trixie!** 🎯
